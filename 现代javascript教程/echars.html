@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.0/dist/echarts.min.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        let data= [
+      {
+        "id": "1",
+        "special_id": "1",
+        "name": "教育培训",
+        "detail_job": "",
+        "detail_pos": "",
+        "rate": "11.52",
+        "area": "",
+        "type": "1",
+        "sort": "1152"
+      },
+      {
+        "id": "2",
+        "special_id": "1",
+        "name": "媒体",
+        "detail_job": "",
+        "detail_pos": "",
+        "rate": "10.64",
+        "area": "",
+        "type": "1",
+        "sort": "1064"
+      },
+      {
+        "id": "3",
+        "special_id": "1",
+        "name": "房地产",
+        "detail_job": "",
+        "detail_pos": "",
+        "rate": "9.70",
+        "area": "",
+        "type": "1",
+        "sort": "970"
+      },
+      {
+        "id": "4",
+        "special_id": "1",
+        "name": "金融投资",
+        "detail_job": "",
+        "detail_pos": "",
+        "rate": "5.64",
+        "area": "",
+        "type": "1",
+        "sort": "564"
+      },
+      {
+        "id": "9",
+        "special_id": "1",
+        "name": "服装",
+        "detail_job": "",
+        "detail_pos": "",
+        "rate": "4.47",
+        "area": "",
+        "type": "1",
+        "sort": "447"
+      },
+      {
+        "id": "7",
+        "special_id": "1",
+        "name": "快消",
+        "detail_job": "",
+        "detail_pos": "",
+        "rate": "4.40",
+        "area": "",
+        "type": "1",
+        "sort": "440"
+      },
+      {
+        "id": "5",
+        "special_id": "1",
+        "name": "互联网",
+        "detail_job": "",
+        "detail_pos": "",
+        "rate": "4.21",
+        "area": "",
+        "type": "1",
+        "sort": "421"
+      },
+      {
+        "id": "8",
+        "special_id": "1",
+        "name": "广告",
+        "detail_job": "",
+        "detail_pos": "",
+        "rate": "3.46",
+        "area": "",
+        "type": "1",
+        "sort": "346"
+      },
+      {
+        "id": "6",
+        "special_id": "1",
+        "name": "咨询服务",
+        "detail_job": "",
+        "detail_pos": "",
+        "rate": "3.45",
+        "area": "",
+        "type": "1",
+        "sort": "345"
+      },
+      {
+        "id": "10",
+        "special_id": "1",
+        "name": "其他行业",
+        "detail_job": "",
+        "detail_pos": "",
+        "rate": "42.51",
+        "area": "",
+        "type": "1",
+        "sort": "0"
+      }
+    ];
+    data.sort(function(o1,o2){
+        return parseInt(o2['rate'])-parseInt(o1['rate'])
+    });
+    // data=
+    console.log(data)
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            dataset:{
+                
+                
+                dimensions: ['name','rate'],
+                source: data
+            },
+            tooltip: {
+                trigger:'axis',
+                formatter:'{b0}<br /> 就业行业分布:({c}%)'
+                // formatter:function (params) {
+                //             let html=params[0].name+"<br>";
+                //             for(let i=0;i<params.length;i++){
+                //             html+='<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:;"></span>';
+                //             // params.value[params.dimensionNames[params.encode.x['name']]]
+                         
+                //             html+=params[i].seriesName+":"+ params.value[params.dimensionNames[params.encode.x['name']]]+"%<br>";
+                           
+                //             return html;
+                        
+                //         }
+            },
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                type: 'value',  
+                axisLabel: {  
+                            show: true,  
+                            interval: 'auto',  
+                            formatter: '{value} %'  
+                            }, 
+                       
+                    
+                    show: true  
+                // data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {type: 'category'},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                // data:  []
+                encode:{
+                    x:'rate',
+                    y:'name'
+                }
+            }]
+        };
+//         option= {
+//     legend: {},
+//     tooltip: {},
+//     dataset: {
+//         // 用 dimensions 指定了维度的顺序。直角坐标系中，
+//         // 默认把第一个维度映射到 X 轴上，第二个维度映射到 Y 轴上。
+//         // 如果不指定 dimensions，也可以通过指定 series.encode
+//         // 完成映射，参见后文。
+//         dimensions: ['product', '2015', '2016', '2017'],
+//         source: [
+//             {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},
+//             {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},
+//             {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},
+//             {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}
+//         ]
+//     },
+//     xAxis: {type: 'category'},
+//     yAxis: {},
+//     series: [
+//         {type: 'bar'},
+//         {type: 'bar'},
+//         {type: 'bar'}
+//     ]
+// };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

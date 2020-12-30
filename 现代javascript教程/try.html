@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        try {
+    lalala; // error, variable is not defined!
+  } catch(err) {
+    console.log(err.name); // ReferenceError
+    console.log(err.message); // lalala is not defined
+    console.log(err.stack); // ReferenceError: lalala is not defined at (...call stack)
+  
+    // 也可以将一个 error 作为整体显示出来as a whole
+    // Error 信息被转换为像 "name: message" 这样的字符串
+    // console.log(err); // ReferenceError: lalala is not defined
+  }
+console.log('*'.repeat(30))
+  let json = '{ "age": 30 }'; // 不完整的数据
+try {
+
+  let user = JSON.parse(json);
+  blabla(); // 预料之外的 error
+  if (!user.name) {
+    throw new SyntaxError("Incomplete data: no name");
+  }
+
+  blabla(); // 预料之外的 error
+
+  console.log( user.name );
+
+} catch(e) {
+
+  if (e instanceof SyntaxError) {
+    console.log( "JSON Error: " + e.message );
+  } else {
+    throw e; // 再次抛出 (*)
+  }
+
+}
+
+class MyError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}
+class ValidationError extends MyError  {
+  constructor(message) {
+    super(message);
+    // this.name = "ValidationError";
+  }
+}
+class PropertyRequiredError extends ValidationError {
+  constructor(property) {
+    super("No property: " + property);
+    // this.name = "PropertyRequiredError";
+    this.property = property;
+  }
+}
+class ReadError extends Error {
+  constructor(message, cause) {
+    super(message);
+    this.cause = cause;
+    this.name = 'ReadError';
+  }
+}
+
+
+function validateUser(user) {
+  if (!user.age) {
+    throw new PropertyRequiredError("age");
+  }
+
+  if (!user.name) {
+    throw new PropertyRequiredError("name");
+  }
+}
+
+function readUser(json) {
+  let user;
+
+  try {
+    user = JSON.parse(json);
+  } catch (err) {
+    if (err instanceof SyntaxError) {
+      throw new ReadError("Syntax Error", err);
+    } else {
+      throw err;
+    }
+  }
+
+  try {
+    validateUser(user);
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      throw new ReadError("Validation Error", err);
+    } else {
+      throw err;
+    }
+  }
+
+}
+
+try {
+  readUser('{bad json}');
+} catch (e) {
+  if (e instanceof ReadError) {
+    alert(e);
+    // Original error: SyntaxError: Unexpected token b in JSON at position 1
+    alert("Original error: " + e.cause);
+  } else {
+    throw e;
+  }
+}
+
+    </script>
+</body>
+</html>
+

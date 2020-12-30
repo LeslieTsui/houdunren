@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function loadScript(src,callback) {
+        // 创建一个 <script> 标签，并将其附加到页面
+        // 这将使得具有给定 src 的脚本开始加载，并在加载完成后运行 -->
+        let script = document.createElement('script');
+        script.src = src;
+        document.head.append(script);
+        script.onload = () => callback(script)
+      }
+      loadScript('./node.js',function(){
+
+      })
+      console.log('我先开始了')
+
+      let promise = new Promise(function(resolve, reject) {
+  // executor（生产者代码，“歌手” ）
+//   resolve(value) — 如果任务成功完成并带有结果 value。
+// reject(error) — 如果出现了 error，error 即为 error 对象。
+    });
+
+    function delay(ms) {
+  // 你的代码
+  return new Promise(function(resolve,reject){
+      setTimeout(() => resolve(), ms);
+  
+    });
+}
+
+delay(3000).then(() => alert('runs after 3 seconds'));
+
+function loadJson(url) {
+  return fetch(url)
+    .then(response => response.json());
+}
+
+function loadGithubUser(name) {
+  return fetch(`https://api.github.com/users/${name}`)
+    .then(response => response.json());
+}
+
+function showAvatar(githubUser) {
+  return new Promise(function(resolve, reject) {
+    let img = document.createElement('img');
+    // img.src = githubUser.avatar_url; 链接失效
+    img.src = './xiaowu.png';
+    img.className = "promise-avatar-example";
+    document.body.append(img);
+
+    setTimeout(() => {
+      img.remove();
+      resolve(githubUser);
+    }, 3000);
+  });
+}
+
+// 使用它们：
+loadJson('https://zh.javascript.info/article/promise-chaining/user.json')
+  .then(user => loadGithubUser(user.name))
+  .then(showAvatar)
+  .then(githubUser => alert(`Finished showing ${githubUser.name}`));
+  // 
+
+  Promise.all([
+  new Promise(resolve => setTimeout(() => resolve(1), 3000)), // 1
+  new Promise(resolve => setTimeout(() => resolve(2), 2000)), // 2
+  new Promise(resolve => setTimeout(() => resolve(3), 1000))  // 3
+]).then(alert); // 1,2,3 当上面这些 promise 准备好时：每个 promise 都贡献了数组中的一个元素
+    </script>
+
+</body>
+</html>

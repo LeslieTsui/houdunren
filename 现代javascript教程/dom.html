@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>Hello, world!</div>
+    <div id='container'></div>
+
+<script>
+  let div = document.querySelector('div');
+
+  // 使用 <p>...</p> 替换 div.outerHTML
+  div.outerHTML = '<p>A new element</p>'; // (*)
+
+  // 蛤！'div' 还是原来那样！
+  console.log(div.outerHTML); // <div>Hello, world!</div> (**)
+  let data = {
+  "Fish": {
+    "trout": {},
+    "salmon": {}
+  },
+
+  "Tree": {
+    "Huge": {
+      "sequoia": {},
+      "oak": {}
+    },
+    "Flowering": {
+      "apple tree": {},
+      "magnolia": {}
+    }
+  }
+};
+for (let a in data){
+    console.log(a)
+}
+// function createTree(container,data){
+//     for (let key in data){
+//         if(data[key]){
+//             console.log(key);
+//             var ul=document.createElement('ul');
+            
+//             var createUl= createTree(ul,data[key]);
+//             console.log(createUl);
+//             container.append(createUl);
+
+
+//         }
+//         else{
+//             var li=document.createElement('li');
+//             console.log(li);
+//             li.innerHTML=key;
+//             console.log(li);
+//         }
+//         console.log('*'.repeat(80));
+//         console.log(li);
+//         ul.append(li);
+        
+//         // container.append(ul)
+
+//     }
+//     return ul;
+// }
+
+
+    function createTree(container, obj) {
+      container.innerHTML = createTreeText(obj);
+    }
+
+    function createTreeText(obj) { // standalone recursive function
+      let li = '';
+      let ul;
+      for (let key in obj) {
+        li += '<li>' + key + createTreeText(obj[key]) + '</li>';
+      }
+      if (li) {
+        ul = '<ul>' + li + '</ul>'
+      }
+      return ul || '';
+    }
+    let container = document.getElementById('container');
+    createTree(container, data);
+  
+//   createTree(container, data); // 将树创建在 container 中
+</script>
+</body>
+</html>

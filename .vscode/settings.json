@@ -1,0 +1,18 @@
+{
+    "compile-hero.disable-compile-files-on-did-save-code": false,
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "rm-bp148h0l14qial1c3xo.mysql.rds.aliyuncs.com",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "zhiyou_test",
+            "database": "edu8",
+            "username": "edu8",
+            "password": "zxwy@2019"
+        }
+    ]
+}

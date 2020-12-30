@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // class MyClass {
+    // prop = value; // 属性
+
+    // constructor(...) { // 构造器
+    //     // ...
+    // }
+
+    // method(...) {} // method
+
+    // get something(...) {} // getter 方法
+    // set something(...) {} // setter 方法
+
+    // [Symbol.iterator]() {} // 有计算名称（computed name）的方法（此处为 symbol）
+    // // ...
+    // }
+    // class Animal {
+    //     constructor(name) {
+    //         this.speed = 0;
+    //         this.name = name;
+    //     }
+    //     run(speed) {
+    //         this.speed = speed;
+    //         console.log(`${this.name} runs with speed ${this.speed}.`);
+    //     }
+    //     stop() {
+    //         this.speed = 0;
+    //         console.log(`${this.name} stands still.`);
+    //     }
+    // }
+
+    // let animal = new Animal("My animal");
+    // class Rabbit extends Animal {
+    //     hide() {
+    //         console.log(`${this.name} hides!`);
+    //     }
+    // }
+
+    // let rabbit = new Rabbit("White Rabbit");
+
+    // rabbit.run(5); // White Rabbit runs with speed 5.
+    // rabbit.hide(); // White Rabbit hides!
+
+//     let animal = {
+//         name: "Animal",
+//         eat() {
+//             console.log(`${this.name} eats.`);
+//         }
+//     };
+
+//     let rabbit = {
+//         __proto__: animal,
+//         name: "Rabbit",
+//         eat() {
+//             // 这就是 super.eat() 可以大概工作的方式
+//             this.__proto__.eat.call(this); // (*)
+//     }
+//     };
+
+//     rabbit.eat(); // Rabbit eats.
+
+//     let animal = {
+//   name: "Animal",
+//   eat() {         // animal.eat.[[HomeObject]] == animal
+//     alert(`${this.name} eats.`);
+//   }
+// };
+
+//     let rabbit = {
+//     __proto__: animal,
+//     name: "Rabbit",
+//     eat() {         // rabbit.eat.[[HomeObject]] == rabbit
+//         super.eat();
+//     }
+//     };
+
+//     let longEar = {
+//     __proto__: rabbit,
+//     name: "Long Ear",
+//     eat() {         // longEar.eat.[[HomeObject]] == longEar
+//         super.eat();
+//     }
+//     };
+
+//     // 正确执行
+//     longEar.eat();  // Long Ear eats.
+    // 静态属性和静态方法
+
+    function User(){}
+    console.dir(User)
+    u = new User();
+    console.dir(u)
+    console.log(u.__proto__==User.prototype)
+    </script>
+</body>
+</html>
